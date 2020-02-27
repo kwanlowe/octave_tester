@@ -1,0 +1,44 @@
+- name: Octave tester
+  hosts: all
+  vars:
+    kll_var1: "Octave Tester"
+  tasks:
+    - name: Install EPEL Repository
+      dnf:
+         name: 
+           - "epel-release"
+         state: present
+      become: true
+
+    - name: install updates
+      yum: 
+        name: "*" 
+        state: latest
+      become: true
+
+    - name: Install snap
+      dnf: 
+        name: 
+          - "snapd"
+      become: true
+
+    - name: Start snap service
+      service:
+        name: snapd
+        state: started
+      become: true
+
+    - name: Install snap Octave
+      snap:
+        name: octave
+        channel: beta
+      become: true
+
+    - name: Copy test script
+      copy:
+        src: "test_symbolic.m"
+        dest: /home/vagrant/test_symbolic.m
+        owner: vagrant
+        group: vagrant
+        mode: 0755
+      
