@@ -8,6 +8,9 @@ setup:
 build-box:
 	vagrant up 
 
+provision-box: 
+	vagrant provision
+
 run-test:
 	mkdir -p Test_Results
-	robot -d Test_Results client.robot
+	robot -d Test_Results Tests/client.robot

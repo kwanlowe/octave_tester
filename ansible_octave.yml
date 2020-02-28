@@ -16,11 +16,26 @@
         state: latest
       become: true
 
+
     - name: Install snap
       dnf: 
         name: 
           - "snapd"
+          - "python3-virtualenv"
       become: true
+
+    - name: "Setup virtualenv with sympy"
+      command: "{{ item }}"
+      with_items:
+        - "virtualenv --python=python3 ~/python_venv/p3"
+        - "~/python_venv/p3/bin/python3 -m pip install sympy"
+
+    - name: "Setup virtualenv with alternate method, install sympy"
+      command: "{{ item }}"
+      with_items:
+        - "python3 -m venv --copies ~/python_venv/p3m"
+        - "~/python_venv/p3m/bin/python3 -m pip install sympy"
+
 
     - name: Start snap service
       service:
@@ -36,9 +51,16 @@
 
     - name: Copy test script
       copy:
-        src: "test_symbolic.m"
-        dest: /home/vagrant/test_symbolic.m
+        src: "scripts/{{ item }}"
+        dest: "/home/vagrant/{{ item}}"
         owner: vagrant
         group: vagrant
         mode: 0755
-      
+      with_items:
+        - test000.m
+        - test001.m
+        - test002.m
+        - test003.m
+        - test004.m
+        - test005.m
+      tags: copy-scripts     
