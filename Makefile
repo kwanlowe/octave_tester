@@ -13,4 +13,4 @@ provision-box:
 
 run-test:
 	mkdir -p Test_Results
-	robot -d Test_Results Tests/client.robot
+	$(VENV)/bin/robot -d Test_Results Tests/client.robot
