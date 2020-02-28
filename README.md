@@ -1,5 +1,7 @@
 # octave\_tester
-Test suite for octave
+Test suite for Octave Snap
+
+Creates a local CentOS Vagrant box, installs the Octave snap and runs some test scripts.
 
 # Running
 
@@ -9,9 +11,7 @@ You will need Vagrant and somewhat recent Python3 installed for this to work.
 git clone git@github.com:kwanlowe/octave_tester.git
 cd octave_tester
 make setup
-source p3_venv/bin/activate
-make build box   (If this fails, run again.. Some timing dependencies)
-make provision-box
+make build box   
 make run-test
 ```
 
