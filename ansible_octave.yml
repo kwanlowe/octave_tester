@@ -36,7 +36,6 @@
         - "python3 -m venv --copies ~/python_venv/p3m"
         - "~/python_venv/p3m/bin/python3 -m pip install sympy"
 
-
     - name: Start snap service
       service:
         name: snapd
@@ -48,6 +47,12 @@
         name: octave
         channel: beta
       become: true
+
+    - name: "Setup virtualenv against snap python"
+      command: "{{ item }}"
+      with_items:
+        - "virtualenv --python=/snap/core18/current/usr/bin/python3 ~/python_venv/p3_snap"
+        - "~/python_venv/p3_snap/bin/python3 -m pip install sympy"
 
     - name: Copy test script
       copy:
@@ -63,4 +68,5 @@
         - test003.m
         - test004.m
         - test005.m
+        - test006.m
       tags: copy-scripts     

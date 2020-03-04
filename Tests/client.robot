@@ -55,6 +55,11 @@ Set PATH to host virtualenv (python3.6m) and run test
     [Documentation]   Run the sympref diagnose script
     Run Keyword and Continue on Failure   test005  
 
+Set PATH to snap virtualenv (python3.6) and run test
+    [Documentation]   Runs the test against a Python venv created from the
+    ...               /snap/core18/current/usr/bin/python3 environment.
+    Run Keyword and Continue on Failure   test006  
+
 
 *** Keywords ***
 
@@ -90,6 +95,12 @@ test004
 test005
     [Documentation]   Installs python3.6m (pymalloc) virtualenv and tests
     ${output}=        Execute Command     octave test005.m 2>&1
+    Log               ${output}
+    Should Contain    ${output}   x = (sym) x
+
+test006
+    [Documentation]   Checks against the snap based Python virtualenv
+    ${output}=        Execute Command     octave test006.m 2>&1
     Log               ${output}
     Should Contain    ${output}   x = (sym) x
 
