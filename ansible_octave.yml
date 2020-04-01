@@ -48,6 +48,15 @@
         channel: beta
       become: true
 
+    - name: Create a symbolic link
+      file:
+        src: /var/lib/snapd/snap
+        dest: /snap
+        owner: root
+        group: root
+        state: link
+      become: true
+
     - name: "Setup virtualenv against snap python"
       command: "{{ item }}"
       with_items:
